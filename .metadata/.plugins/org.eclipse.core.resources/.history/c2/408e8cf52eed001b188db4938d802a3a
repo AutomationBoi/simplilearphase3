@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Fly Away</title>
+<!-- cdn for modernizr, if you haven't included it already -->
+<script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
+<!-- polyfiller file to detect and load polyfills -->
+<script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
+<script>
+  webshims.setOptions('waitReady', false);
+  webshims.setOptions('forms-ext', {types: 'date'});
+  webshims.polyfill('forms forms-ext');
+</script>
+</head>
+<body>
+<h1>Search flights</h1>
+<form method="get" action="Flight">
+<select name="source" id="pet-select">
+    <option value="">--Please choose Source--</option>
+    <option value="Delhi">Delhi</option>
+    <option value="Srinagar">Srinagar</option>
+</select>
+<select name="dest" id="pet-select">
+    <option value="">--Please choose Destination--</option>
+    <option value="Hyd">Hyderabad</option>
+    <option value="Goa">Goa</option>
+    <option value="Delhi">Delhi</option>
+</select>
+<input type="date" id="start" name="trip-start"
+       value="2018-07-22"
+       min="2018-01-01" max="2018-12-31">
+<button type="submit">SUBMIT</button>
+</form>
+</body>
+</html>

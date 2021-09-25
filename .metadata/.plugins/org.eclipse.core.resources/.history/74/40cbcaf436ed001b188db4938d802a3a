@@ -1,0 +1,105 @@
+
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Scanner;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class AdminLogin
+ */
+@WebServlet("/Flight")
+public class Flight extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+    /**
+     * Default constructor. 
+     */
+    public Flight() {
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.setContentType("text/html");
+		PrintWriter out=response.getWriter();
+		ServletContext context = getServletContext();
+		String fullPath = context.getRealPath("/WEB-INF/prices.txt");
+		String source=request.getParameter("source");
+		String dest=request.getParameter("dest");
+		String date=request.getParameter("date");
+		Integer pass_count=Integer.parseInt(request.getParameter("pass_count"));
+		DateTimeFormatter sdf = DateTimeFormatter.ISO_LOCAL_DATE;
+		try {
+            LocalDate.parse(date, sdf);
+        } catch (DateTimeParseException e) {
+            out.write("Please Provide Valid date in format yyyy-mm-dd");
+        }
+		BufferedReader br = new BufferedReader(new FileReader(fullPath));
+		String line = "";  
+		String splitBy = ",";  
+		boolean bool=false;
+		Integer ct=0;
+		while ((line = br.readLine()) != null)   //returns a Boolean value  
+		{  
+			ct+=1;
+		String[] flight_data = line.split(splitBy);    // use comma as separator  
+		if(source.equals(flight_data[0]) && dest.equals(flight_data[1])) {
+			out.write("<h3>Flight exist from "+source+" to "+dest+" On "+date+"</h3>");
+			Integer price_per_head=Integer.parseInt(flight_data[3]);
+			Integer tot_price=price_per_head*pass_count;
+			String url="<a href="+response.encodeURL("/FlyAway/reg.html?ct="+ct+"Register here</a>");
+			out.write(url);
+			out.write("<table border=\"1\"><th>Airlines</th>"
+					+ "<th>Price Per Head</th>"
+					+ "<th>Total Price</th>"
+					+"<th>Link To Register"
+					+ "<tr><td>"+flight_data[2]+"</td><td>"+flight_data[3]+"</td><td>"+tot_price+"</td><td>"+url+"</td></tr></table>");
+			String csv_to_store=flight_data[0]+","+flight_data[1]+","+flight_data[2]+","+flight_data[3]+","+tot_price;
+			fullPath = context.getRealPath("/WEB-INF/booking.txt");
+			FileWriter fw=new FileWriter(fullPath);
+			fw.write(csv_to_store);
+			fw.close();
+			
+			bool=true;
+			
+		}
+		  
+		}
+		if(bool==false) {
+			out.write("<h3>No Flight exist From Source "+source+" To Destination "+dest+"</h3>");
+		}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		//doGet(request, response);
+		response.setContentType("text/html");
+		PrintWriter out=response.getWriter();
+		
+	
+
+	}
+
+}

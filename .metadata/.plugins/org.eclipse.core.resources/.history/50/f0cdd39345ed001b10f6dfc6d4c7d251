@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Change Admin Password</title>
+</head>
+<body>
+<form method="post" action="ChangePass">
+	<input type="password" placeholder="OldPassword" name="oldpass"> 
+	<input  type="password" placeholder="NewPassword" name="newpass"> 
+	<button type="submit">SUBMIT</button>
+</form>
+</body>
+</html>

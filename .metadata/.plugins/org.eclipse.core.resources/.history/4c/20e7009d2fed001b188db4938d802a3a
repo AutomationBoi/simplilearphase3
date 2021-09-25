@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Fly Away</title>
+</head>
+<body>
+<h1>Search flights</h1>
+<form method="get" action="Flight">
+<select name="source" id="pet-select">
+    <option value="">--Please choose Source--</option>
+    <option value="Delhi">Delhi</option>
+    <option value="Srinagar">Srinagar</option>
+</select>
+<select name="dest" id="pet-select">
+    <option value="">--Please choose Destination--</option>
+    <option value="Hyd">Hyderabad</option>
+    <option value="Goa">Goa</option>
+    <option value="Delhi">Delhi</option>
+</select>
+<input type="date" name="date">
+<button type="submit">SUBMIT</button>
+</form>
+</body>
+</html>

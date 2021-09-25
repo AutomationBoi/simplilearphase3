@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>FlyAway Login</title>
+</head>
+<body>
+<form method="post">
+	<input type="text" placeholder="UserName"> </input>
+	<input type="password" placeholder="UserName"> </input>
+	<button type="submit"></button>
+</form>
+</body>
+</html>

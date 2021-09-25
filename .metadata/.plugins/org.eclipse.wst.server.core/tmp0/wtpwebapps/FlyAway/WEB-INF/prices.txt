@@ -1,0 +1,3 @@
+Delhi,Hyd,GoAir,5000
+Delhi,Goa,Indigo,8000
+Srinagar,Delhi,Kingfisher,3000
